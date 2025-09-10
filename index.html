@@ -1,45 +1,16 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-T">
-    <title>Prueba de Webhook</title>
-</head>
-<body>
-    <h1>Prueba de Conexión a Make.com</h1>
-    <input type="text" id="pregunta" placeholder="Escribe algo...">
-    <button id="enviar">Enviar</button>
-    <div id="respuesta"></div>
+<!-- Estructura del Chatbot -->
+<div id="chat-bubble">
+    <!-- Ícono SVG para el botón del chat -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+</div>
 
-    <script>
-        const webhookUrl = 'https://hook.us2.make.com/yo3lxdan5fg8lcxo7olw6yr89fh27ht4';
-        const boton = document.getElementById('enviar');
-        const input = document.getElementById('pregunta');
-        const divRespuesta = document.getElementById('respuesta');
-
-        boton.addEventListener('click', () => {
-            const preguntaUsuario = input.value;
-            divRespuesta.textContent = 'Enviando...';
-
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ pregunta: preguntaUsuario })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error de red: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                divRespuesta.textContent = 'Respuesta recibida: ' + JSON.stringify(data);
-            })
-            .catch(error => {
-                divRespuesta.textContent = 'Error: ' + error.message;
-                console.error('Error en fetch:', error);
-            });
-        });
-    </script>
-</body>
-</html>
-
+<div id="chat-window">
+    <div id="chat-header">Alex AI Insurtech Assistant</div>
+    <div id="chat-body"></div>
+    <div id="chat-footer">
+        <input type="text" id="chat-input" placeholder="Type your message...">
+    </div>
+</div>
+<!-- Fin de la Estructura del Chatbot -->
