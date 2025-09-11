@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Funciones del Chatbot
     function sendMessage(message) {
-        if (MAKE_WEBHOOK_URL.includes('https://hook.us2.make.com/fi2p7b6oeav10euxb5fpk6eakqv7teeu')) {
+        if (MAKE_WEBHOOK_URL.includes('PEGA_AQUÍ')) {
             addMessageToUI('Error: Webhook URL is not configured in the script.', 'bot-message');
             return;
         }
@@ -105,4 +105,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
