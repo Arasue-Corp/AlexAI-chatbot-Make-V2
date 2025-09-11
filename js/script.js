@@ -1,3 +1,4 @@
+// --- Lógica del chatbot ---
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Referencias a los elementos HTML del chat
@@ -7,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatInput = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-btn');
     
-    // Verifica que los elementos existan antes de continuar
     if (!chatBubble || !chatWindow || !chatBody || !chatInput || !sendButton) {
         console.error("Faltan uno o más elementos del chatbot en el HTML.");
         return; 
@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let sessionId = null;
     
     const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/fi2p7b6oeav10euxb5fpk6eakqv7teeu'; 
+
+    const MI_TOKEN_SECRETO = 'Bearer Alex-ai-2025';
 
     // 2. Lógica de Eventos
     chatBubble.addEventListener('click', () => {
@@ -44,10 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Funciones del Chatbot
     function sendMessage(message) {
-        if (MAKE_WEBHOOK_URL.includes('PEGA_AQUÍ')) {
-            updateLastBotMessage('Error: La URL del webhook no ha sido configurada.');
-            const indicator = document.getElementById('typing-indicator');
-            if(indicator) indicator.remove();
+        if (MAKE_WEBHOOK_URL.includes('https://hook.us2.make.com/fi2p7b6oeav10euxb5fpk6eakqv7teeu')) {
+            addMessageToUI('Error: Webhook URL is not configured in the script.', 'bot-message');
             return;
         }
 
@@ -59,21 +59,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fetch(MAKE_WEBHOOK_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                
+                'Authorization': MI_TOKEN_SECRETO 
+            },
             body: JSON.stringify(payload),
         })
         .then(response => {
+            if (response.status === 401) {
+                 throw new Error('Unauthorized - Token incorrecto.');
+            }
             if (!response.ok) {
-                throw new Error(`Error de conexión: ${response.status}`);
+                throw new Error(`Connection error: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
-            updateLastBotMessage(data.respuesta || 'Lo siento, no pude procesar la respuesta.');
+            updateLastBotMessage(data.respuesta || 'Sorry, I could not process the response.');
         })
         .catch(error => {
-            console.error('Error en fetch:', error);
-            updateLastBotMessage('Lo siento, ocurrió un error de conexión. Inténtalo de nuevo.');
+            console.error('Error in fetch:', error);
+            updateLastBotMessage(`Sorry, an error occurred. ${error.message}`);
         });
     }
     
@@ -98,3 +105,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
