@@ -1,24 +1,23 @@
-// --- Lógica del Chatbot ---
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Referencias a los elementos HTML del chat
+    // 1. Referencias a los elementos HTML del chat
     const chatBubble = document.getElementById('chat-bubble');
     const chatWindow = document.getElementById('chat-window');
     const chatBody = document.getElementById('chat-body');
     const chatInput = document.getElementById('chat-input');
-    const sendButton = document.getElementById('send-btn'); 
+    const sendButton = document.getElementById('send-btn');
     
-    
+    // Verifica que los elementos existan antes de continuar
     if (!chatBubble || !chatWindow || !chatBody || !chatInput || !sendButton) {
-        console.error("No se encontraron los elementos del chatbot. Verifica los IDs en tu HTML.");
-        return;
+        console.error("Faltan uno o más elementos del chatbot en el HTML.");
+        return; 
     }
 
     let sessionId = null;
     
-    
-    const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/yo3lxdan5fg8lcxo7olw6yr89fh27ht4'; 
+    const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/fi2p7b6oeav10euxb5fpk6eakqv7teeu'; 
 
-    // Evento para abrir y cerrar la ventana de chat
+    // 2. Lógica de Eventos
     chatBubble.addEventListener('click', () => {
         chatWindow.classList.toggle('open');
         
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    //Función unificada para manejar el envío de mensajes
     const handleSendMessage = () => {
         const message = chatInput.value.trim();
         if (message !== '') {
@@ -37,19 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Evento para el botón de enviar
     sendButton.addEventListener('click', handleSendMessage);
-
-    // Evento para la tecla "Enter"
     chatInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             handleSendMessage();
         }
     });
-    
+
+    // 3. Funciones del Chatbot
     function sendMessage(message) {
         if (MAKE_WEBHOOK_URL.includes('PEGA_AQUÍ')) {
-            updateLastBotMessage('Error: La URL del webhook no ha sido configurada en el archivo script.js.');
+            updateLastBotMessage('Error: La URL del webhook no ha sido configurada.');
             const indicator = document.getElementById('typing-indicator');
             if(indicator) indicator.remove();
             return;
@@ -59,10 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.value = '';
         addMessageToUI('...', 'bot-message', true);
 
-        const payload = {
-            pregunta: message,
-            session_id: sessionId 
-        };
+        const payload = { pregunta: message, session_id: sessionId };
 
         fetch(MAKE_WEBHOOK_URL, {
             method: 'POST',
@@ -79,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLastBotMessage(data.respuesta || 'Lo siento, no pude procesar la respuesta.');
         })
         .catch(error => {
-            console.error('Error detallado en fetch:', error);
+            console.error('Error en fetch:', error);
             updateLastBotMessage('Lo siento, ocurrió un error de conexión. Inténtalo de nuevo.');
         });
     }
@@ -88,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('chat-message', className);
         messageDiv.textContent = text;
-
         if (isTyping) {
             messageDiv.id = 'typing-indicator';
         }
