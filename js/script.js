@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let sessionId = null;
-    
+
     const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/fi2p7b6oeav10euxb5fpk6eakqv7teeu'; 
 
     const MI_TOKEN_SECRETO = 'Bearer Alex-ai-2025';
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
-                
+                // Se añade la cabecera de autorización para seguridad
                 'Authorization': MI_TOKEN_SECRETO 
             },
             body: JSON.stringify(payload),
