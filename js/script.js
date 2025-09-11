@@ -1,4 +1,4 @@
-// --- Lógica del chatbot ---
+// --- Lógica chatbot---
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Referencias a los elementos HTML del chat
@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let sessionId = null;
-
+    
     const MAKE_WEBHOOK_URL = 'https://hook.us2.make.com/fi2p7b6oeav10euxb5fpk6eakqv7teeu'; 
-
+    
     const MI_TOKEN_SECRETO = 'Bearer Alex-ai-2025';
 
     // 2. Lógica de Eventos
@@ -73,10 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error(`Connection error: ${response.status}`);
             }
-            return response.json();
+            // Obtenemos la respuesta como texto para manejar errores de JSON de forma segura.
+            return response.text();
         })
-        .then(data => {
-            updateLastBotMessage(data.respuesta || 'Sorry, I could not process the response.');
+        .then(text => {
+            console.log("Respuesta recibida del servidor:", text); 
+            try {
+                // Intentamos convertir el texto a JSON
+                const data = JSON.parse(text);
+                updateLastBotMessage(data.respuesta || 'Sorry, I could not process the response.');
+            } catch (e) {
+                // Si falla, la respuesta no era JSON. Mostramos el texto directamente.
+                updateLastBotMessage(text || 'Se recibió una respuesta vacía o inválida.');
+            }
         })
         .catch(error => {
             console.error('Error in fetch:', error);
@@ -105,5 +114,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
-
 
