@@ -1,23 +1,65 @@
-<!-- Estructura del Chatbot -->
-<div id="chat-bubble">
-    <!-- Ícono SVG para el botón del chat -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-    </svg>
-</div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Completa del Chatbot</title>
+    <!-- Enlace al archivo CSS del chatbot -->
+    <link rel="stylesheet" href="css/chatbot.css">
+    <style>
+        /* Estilos básicos para la página de prueba */
+        body {
+            font-family: sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .content {
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
 
-<div id="chat-window">
-    <div id="chat-header">Alex AI Insurtech Assistant</div>
-    <div id="chat-body"></div>
-    <div id="chat-footer">
-        <input type="text" id="chat-input" placeholder="Type your message...">
-        <button id="send-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-        </button>
+    <div class="content">
+        <h1>Página de Prueba del Chatbot</h1>
+        <p>Esta página contiene únicamente el chatbot para asegurar que funcione correctamente. Haz clic en la burbuja azul en la esquina inferior derecha para comenzar.</p>
     </div>
-</div>
-<!-- Fin de la Estructura del Chatbot -->
 
+    <!-- Estructura del Chatbot (pegada desde el archivo anterior) -->
+    <div id="chat-bubble">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </div>
+
+    <div id="chat-window">
+        <div id="chat-header">Alex AI Insurtech Assistant</div>
+        <div id="chat-body"></div>
+        <div id="chat-footer">
+            <input type="text" id="chat-input" placeholder="Type your message...">
+            <button id="send-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <!-- Fin de la Estructura del Chatbot -->
+
+    <!-- Enlace al archivo JavaScript del chatbot, justo antes de cerrar el body -->
+    <script src="js/chatbot.js"></script>
+</body>
+</html>
