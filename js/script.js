@@ -69,12 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.text();
         })
         .then(text => {
+            let content = text; // Por defecto, la respuesta es el texto completo.
             try {
+                // Se intenta analizar el texto como JSON.
                 const data = JSON.parse(text);
-                updateLastBotMessage(data.respuesta || 'Sorry, I received an invalid response format.');
+                // Si tiene éxito Y contiene la clave "respuesta", se extrae solo el mensaje.
+                if (data && data.respuesta) {
+                    content = data.respuesta;
+                }
             } catch (e) {
-                updateLastBotMessage(text);
+                // Si no es un JSON válido (como la respuesta "Accepted"), no se hace nada.
+                // Se mostrará el texto tal cual, que es el comportamiento deseado.
             }
+            updateLastBotMessage(content);
         })
         .catch(error => {
             console.error('Error in fetch:', error);
@@ -116,4 +123,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
