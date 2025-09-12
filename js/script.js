@@ -89,21 +89,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // NUEVA FUNCIÓN para convertir Markdown simple a HTML
+    /**
+     * Convierte texto simple con formato Markdown a HTML para mostrarlo correctamente.
+     * @param {string} text - El texto a formatear.
+     * @returns {string} - El texto convertido a HTML.
+     */
     function formatMarkdownToHTML(text) {
-        return text
-            // Convierte **negrita** a <strong>negrita</strong>
+        let safeText = String(text || '');
+
+        // Reemplaza elementos de Markdown a HTML en un orden lógico
+        safeText = safeText
+            // Encabezados (### -> <h3>)
+            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+            // Regla horizontal (---)
+            .replace(/^---$/gim, '<hr>')
+            // Enlaces ([texto](url))
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+            // Negrita (**texto**)
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            // Convierte saltos de línea a <br>
+            // Cursiva (*texto*)
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            // Listas (convierte "- item" a un punto)
+            .replace(/^\s*-\s/gm, '&bull; ')
+            // Finalmente, convierte saltos de línea a <br>
             .replace(/\n/g, '<br>');
+        
+        return safeText;
     }
     
     function addMessageToUI(text, className, isTyping = false) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('chat-message', className);
         
-        // Se usa la nueva función de formato y .innerHTML
-        messageDiv.innerHTML = formatMarkdownToHTML(text);
+        // Se usa la nueva función de formato y .innerHTML para renderizar el HTML
+        if (className === 'bot-message') {
+            messageDiv.innerHTML = formatMarkdownToHTML(text);
+        } else {
+            messageDiv.textContent = text; // Los mensajes del usuario no necesitan formato
+        }
 
         if (isTyping) {
             messageDiv.id = 'typing-indicator';
@@ -123,5 +146,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
-
 
