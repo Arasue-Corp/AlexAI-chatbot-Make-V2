@@ -1,4 +1,4 @@
-/* --- Estilos para el Chatbot --- */
+/* --- Styles for the Chatbot --- */
 
 /* Botón de burbuja del chat */
 #chat-bubble {
@@ -17,12 +17,12 @@
     box-shadow: 0 5px 15px rgba(0, 91, 179, 0.4);
     z-index: 9999;
     transition: all 0.3s ease-in-out;
-    animation: pulse 2.5s infinite;
+    animation: pulse 2.5s infinite; 
 }
 
 #chat-bubble:hover {
-    transform: scale(1.15);
-    animation-play-state: paused;
+    transform: scale(1.15); 
+    animation-play-state: paused; 
 }
 
 #chat-bubble svg {
@@ -66,6 +66,7 @@
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Clase para mostrar la ventana con animación */
 #chat-window.open {
     transform: scale(1);
 }
@@ -77,6 +78,24 @@
     font-weight: bold;
     text-align: center;
     flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Botón de cierre */
+#close-chat-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    display: none; 
+}
+
+#close-chat-btn svg {
+    width: 24px;
+    height: 24px;
 }
 
 #chat-body {
@@ -88,13 +107,10 @@
     background-color: #f9f9f9;
 }
 
-/* MODIFICADO: Estilos para el pie de página del chat con flexbox */
 #chat-footer {
     padding: 10px;
     border-top: 1px solid #eee;
     display: flex;
-    align-items: center; /* Centra los items verticalmente */
-    gap: 10px; /* Espacio entre el input y el botón */
     background-color: #fff;
     flex-shrink: 0;
 }
@@ -105,27 +121,6 @@
     border-radius: 20px;
     padding: 10px 15px;
     outline: none;
-    font-size: 16px;
-}
-
-/* AÑADIDO: Estilos para el botón de enviar */
-#send-btn {
-    background: #007bff;
-    border: none;
-    color: white;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    flex-shrink: 0; /* Evita que el botón se encoja */
-}
-
-#send-btn:hover {
-    background: #0056b3;
 }
 
 .chat-message {
@@ -161,13 +156,20 @@
         bottom: 0;
         left: 0;
         border-radius: 0;
-        transform-origin: bottom center;	
+        transform-origin: bottom center; 
     }
 
     #chat-bubble {
         bottom: 15px;
         right: 15px;
     }
-}
 
+    #close-chat-btn {
+        display: block; 
+    }
+
+    #chat-header {
+        justify-content: space-between; /* Alinea el título y el botón */
+    }
+}
 
