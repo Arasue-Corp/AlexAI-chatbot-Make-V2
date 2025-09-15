@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatWindow = document.getElementById('chat-window');
     const chatBody = document.getElementById('chat-body');
     const chatInput = document.getElementById('chat-input');
+    const closeChatBtn = document.getElementById('close-chat-btn');
     
     if (!chatBubble || !chatWindow || !chatBody || !chatInput) {
         console.error("Error: One or more required chatbot elements are missing from the HTML.");
@@ -27,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const greeting = "Hello! I'm Alex, your virtual assistant. How can I help you today?";
             addMessageToUI(greeting, 'bot-message');
         }
+    });
+
+    closeChatBtn.addEventListener('click', () => {
+        chatWindow.classList.remove('open');
     });
 
     chatInput.addEventListener('keypress', (event) => {
@@ -146,4 +151,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
